@@ -2,7 +2,6 @@ x=100000
 c=0
 i=0
 lista=[]
-
 while x > 0:
   n=int(input())
   if n == 0:
