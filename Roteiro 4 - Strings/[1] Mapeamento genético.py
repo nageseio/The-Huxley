@@ -11,7 +11,6 @@ if dna2 in dna:
     cc+=1
 else:
   print("ERRO")
-
 if len(li) > 1:
   cc = cc-2
   print(dna.find(dna2*cc))
