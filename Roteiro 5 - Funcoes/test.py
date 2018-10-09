@@ -21,7 +21,6 @@ def sudoku(K):
     co=0
     for i in range(9):
       ci=''.join(l[co])
-      print(ci)
       for i in range(1,10):
         s1 = str(ci).count(str(i))
         if s1 == 1:
@@ -33,43 +32,60 @@ def sudoku(K):
     return r
 
   def sudoku2(l):
+    ci2=['1','2','3']
+    ci4=[]
+    ci6=[]
     lista_s=[]
     num1=0
     num2=3
     for i in range(3):
       for x in range(num1,num2):
         for y in range(0,3):
-          lista_s.append(l[x][y])
-        ci = ''.join(lista_s)
+          lista_s.append(str(l[x][y]))
+        ci2 = ci2+lista_s
+        ci = ''.join(ci2[3:12])
         print(ci)
         for i in range(1,10):
-          s1 = str(lista_s).count(str(i))
+          s1 = str(ci).count(str(i))
           if s1 == 1:
             r = "s"
           else:
             r = "n"
             break
-        lista_s=[]
+          lista_s=[]
       for x in range(num1,num2):
         for y in range(3,6):
-          lista_s.append(l[x][y])
-      if sum(lista_s) == 45:
-        r = "s"
-        lista_s=[]
-      else:
-        r = "n"
-        break
+          lista_s.append(str(l[x][y]))
+        ci4 = ci4+lista_s
+        ci3 = ''.join(ci4[3:12])
+        print(ci3)
+        for i in range(1,10):
+          s1 = str(ci3).count(str(i))
+          if s1 == 1:
+            r = "s"
+          else:
+            r = "n"
+            break
+          lista_s=[]
       for x in range(num1,num2):
         for y in range(6,9):
           lista_s.append(l[x][y])
-      if sum(lista_s) == 45:
-        r = "s"
-        lista_s=[]
-      else:
-        r = "n"
-        break
+        ci6 = ci6+lista_s
+        ci5 = ''.join(ci6[9:18])
+        print(ci5)
+        for i in range(1,10):
+          s1 = str(ci6).count(str(i))
+          if s1 == 1:
+            r = "s"
+          else:
+            r = "n"
+            break
       num1+=3
-      num2+=3    
+      num2+=3 
+      ci2=[]
+      ci4=[]
+      ci6=[]
+      lista_s=[]   
     return r
   if sudoku0(l) == "s" and sudoku1(l) == "s" and sudoku2(l) == "s":
     return "ss"
