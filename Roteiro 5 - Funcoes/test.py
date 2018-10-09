@@ -6,30 +6,30 @@ def sudoku(K):
       lista_s0=[]
       for x in range(9):
         lista_s0.append(l[x][co])
-      lista_s1 = ''.join(lista_s0)
+      ci=''.join(lista_s0)
       for i in range(1,10):
-        s1 = str(lista_s1).count(str(i))
+        s1 = str(ci).count(str(i))
         if s1 == 1:
           r = "s"
-          co+=1
         else:
           r = "n"
           break
-      
+      co+=1
     return r
 
   def sudoku1(l):
     co=0
     for i in range(9):
-      lista_s1= ''.join(l[co])
+      ci=''.join(l[co])
+      print(ci)
       for i in range(1,10):
-        s1 = str(lista_s1).count(str(i))
+        s1 = str(ci).count(str(i))
         if s1 == 1:
           r = "s"
-          co+=1
         else:
           r = "n"
           break
+      co+=1
     return r
 
   def sudoku2(l):
@@ -40,39 +40,34 @@ def sudoku(K):
       for x in range(num1,num2):
         for y in range(0,3):
           lista_s.append(l[x][y])
-      lista_s1 = ''.join(lista_s)
-      for i in range(1,10):
-        s1 = str(lista_s1).count(str(i))
-        if s1 == 1:
-          r = "s"
-          lista_s=[]
-        else:
-          r = "n"
-          break
+        ci = ''.join(lista_s)
+        print(ci)
+        for i in range(1,10):
+          s1 = str(lista_s).count(str(i))
+          if s1 == 1:
+            r = "s"
+          else:
+            r = "n"
+            break
+        lista_s=[]
       for x in range(num1,num2):
         for y in range(3,6):
           lista_s.append(l[x][y])
-      lista_s1 = ''.join(lista_s)
-      for i in range(1,10):
-        s1 = str(lista_s1).count(str(i))
-        if s1 == 1:
-          r = "s"
-          lista_s=[]
-        else:
-          r = "n"
-          break
+      if sum(lista_s) == 45:
+        r = "s"
+        lista_s=[]
+      else:
+        r = "n"
+        break
       for x in range(num1,num2):
         for y in range(6,9):
           lista_s.append(l[x][y])
-      lista_s1 = ''.join(lista_s)
-      for i in range(1,10):
-        s1 = str(lista_s1).count(str(i))
-        if s1 == 1:
-          r = "s"
-          lista_s=[]
-        else:
-          r = "n"
-          break
+      if sum(lista_s) == 45:
+        r = "s"
+        lista_s=[]
+      else:
+        r = "n"
+        break
       num1+=3
       num2+=3    
     return r
@@ -89,7 +84,7 @@ for x in range(n):
   for i in range(9*n):
     if coo == n:
       break
-    lista=[int(i) for i in input().split()]
+    lista=[str(i) for i in input().split()]
     lista2.append(lista) 
     print
     nine=0
@@ -108,11 +103,3 @@ for x in range(n):
     nine+=9
     nine2+=9
     coo+=1
-    
-    
-    
-    
-    lista_s0=['8', '7', '9', '6', '4', '2', '1', '3', '5']
-lista_s1= ''.join(lista_s0)
-for i in range(1,10):
-  print(str(lista_s1).count(str(i)))
