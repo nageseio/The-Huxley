@@ -44,7 +44,8 @@ def sudoku(K):
           lista_s.append(str(l[x][y]))
         ci2 = ci2+lista_s
         ci = ''.join(ci2[3:12])
-        print(ci)
+        if len(ci) == 9:
+         print(ci)
         for i in range(1,10):
           s1 = str(ci).count(str(i))
           if s1 == 1:
@@ -58,7 +59,8 @@ def sudoku(K):
           lista_s.append(str(l[x][y]))
         ci4 = ci4+lista_s
         ci3 = ''.join(ci4[3:12])
-        print(ci3)
+        if len(ci3) == 9:
+          print(ci3)
         for i in range(1,10):
           s1 = str(ci3).count(str(i))
           if s1 == 1:
@@ -72,7 +74,8 @@ def sudoku(K):
           lista_s.append(l[x][y])
         ci6 = ci6+lista_s
         ci5 = ''.join(ci6[9:18])
-        print(ci5)
+        if len(ci5) == 9:
+          print(ci5)
         for i in range(1,10):
           s1 = str(ci6).count(str(i))
           if s1 == 1:
