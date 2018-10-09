@@ -38,6 +38,7 @@ def sudoku(K):
     lista_s=[]
     num1=0
     num2=3
+    cof=0
     for i in range(3):
       for x in range(num1,num2):
         for y in range(0,3):
@@ -45,44 +46,43 @@ def sudoku(K):
         ci2 = ci2+lista_s
         ci = ''.join(ci2[3:12])
         if len(ci) == 9:
-         print(ci)
-        for i in range(1,10):
-          s1 = str(ci).count(str(i))
-          if s1 == 1:
-            r = "s"
-          else:
-            r = "n"
-            break
-          lista_s=[]
+          for i in range(1,10):
+            s1 = str(ci).count(str(i))
+            if s1 == 1:
+              r = "s"
+            else:
+              r = "n"
+              break
+      lista_s=[]
       for x in range(num1,num2):
         for y in range(3,6):
           lista_s.append(str(l[x][y]))
         ci4 = ci4+lista_s
         ci3 = ''.join(ci4[3:12])
         if len(ci3) == 9:
-          print(ci3)
-        for i in range(1,10):
-          s1 = str(ci3).count(str(i))
-          if s1 == 1:
-            r = "s"
-          else:
-            r = "n"
-            break
-          lista_s=[]
+          for i in range(1,10):
+            s1 = ci3.count(str(i))
+            if s1 == 1:
+              r = "s"
+            else:
+              r = "n"
+              break
+      lista_s=[]
       for x in range(num1,num2):
         for y in range(6,9):
           lista_s.append(l[x][y])
         ci6 = ci6+lista_s
         ci5 = ''.join(ci6[9:18])
         if len(ci5) == 9:
-          print(ci5)
-        for i in range(1,10):
-          s1 = str(ci6).count(str(i))
-          if s1 == 1:
-            r = "s"
-          else:
-            r = "n"
-            break
+          for i in range(1,10):
+            s1 = ci5.count(str(i))
+            if s1 == 1:
+              r = "s"
+            else:
+              r = "n"
+              break
+      lista_s=[]
+      cof+=1
       num1+=3
       num2+=3 
       ci2=[]
@@ -92,7 +92,7 @@ def sudoku(K):
     return r
   if sudoku0(l) == "s" and sudoku1(l) == "s" and sudoku2(l) == "s":
     return "ss"
-  else:
+  elif sudoku0(l) == "n" or sudoku1(l) == "n" or sudoku2(l) == "n":
     return "nn"
     
 lista2=[]
