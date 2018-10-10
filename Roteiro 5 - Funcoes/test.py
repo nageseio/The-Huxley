@@ -1,124 +1,107 @@
-def sudoku(K):
-  l = K
-  def sudoku0(l):
-    co=0
-    for i in range(9):
-      lista_s0=[]
-      for x in range(9):
-        lista_s0.append(l[x][co])
-      ci=''.join(lista_s0)
-      for i in range(1,10):
-        s1 = str(ci).count(str(i))
-        if s1 == 1:
-          r = "s"
-        else:
-          r = "n"
-          break
-      co+=1
-    return r
-
-  def sudoku1(l):
-    co=0
-    for i in range(9):
-      ci=''.join(l[co])
-      for i in range(1,10):
-        s1 = str(ci).count(str(i))
-        if s1 == 1:
-          r = "s"
-        else:
-          r = "n"
-          break
-      co+=1
-    return r
-
-  def sudoku2(l):
-    ci2=['1','2','3']
-    ci4=[]
-    ci6=[]
-    lista_s=[]
-    num1=0
-    num2=3
-    cof=0
-    for i in range(3):
-      for x in range(num1,num2):
-        for y in range(0,3):
-          lista_s.append(str(l[x][y]))
-        ci2 = ci2+lista_s
-        ci = ''.join(ci2[3:12])
-        if len(ci) == 9:
-          for i in range(1,10):
-            s1 = str(ci).count(str(i))
-            if s1 == 1:
-              r = "s"
-            else:
-              r = "n"
-              break
-      lista_s=[]
-      for x in range(num1,num2):
-        for y in range(3,6):
-          lista_s.append(str(l[x][y]))
-        ci4 = ci4+lista_s
-        ci3 = ''.join(ci4[3:12])
-        if len(ci3) == 9:
-          for i in range(1,10):
-            s1 = ci3.count(str(i))
-            if s1 == 1:
-              r = "s"
-            else:
-              r = "n"
-              break
-      lista_s=[]
-      for x in range(num1,num2):
-        for y in range(6,9):
-          lista_s.append(l[x][y])
-        ci6 = ci6+lista_s
-        ci5 = ''.join(ci6[9:18])
-        if len(ci5) == 9:
-          for i in range(1,10):
-            s1 = ci5.count(str(i))
-            if s1 == 1:
-              r = "s"
-            else:
-              r = "n"
-              break
-      lista_s=[]
-      cof+=1
-      num1+=3
-      num2+=3 
-      ci2=[]
-      ci4=[]
-      ci6=[]
-      lista_s=[]   
-    return r
-  if sudoku0(l) == "s" and sudoku1(l) == "s" and sudoku2(l) == "s":
-    return "ss"
-  elif sudoku0(l) == "n" or sudoku1(l) == "n" or sudoku2(l) == "n":
-    return "nn"
-    
-lista2=[]
-lista3=[]
-coo=0
+def insta0(lista):
+  v1,v2,v3=0,1,2
+  for i in range(9):
+    for x in range(1,2):
+      if str(x) in l4[v1]+l4[v2]+l4[v3]:
+        resp0 = "s"
+        print("aqui 1")
+      else:
+        resp0 = "n"
+        print("aqui 1")
+        break
+    v1+=3
+    v2+=3
+    v3+=3
+  return resp0
+def insta1(lista):
+  v1,v2,v3=0,3,6
+  for i in range(3):
+    for x in range(1,2):
+      if str(x) in l4[v1]+l4[v2]+l4[v3]:
+        resp = "s"
+        print("aqui 2")
+      else:
+        resp = "n"
+        print("aqui 2")
+        break
+    v1+=1
+    v2+=1
+    v3+=1
+  v1,v2,v3=9,12,15
+  for i in range(3):
+    for x in range(1,2):
+      if str(x) in l4[v1]+l4[v2]+l4[v3]:
+        resp = "s"
+        print("aqui 3")
+      else:
+        resp = "n"
+        print("aqui 3")
+        break
+    v1+=1
+    v2+=1
+    v3+=1
+  v1,v2,v3=18,21,24
+  for i in range(3):
+    for x in range(1,2):
+      if str(x) in l4[v1]+l4[v2]+l4[v3]:
+        resp = "s"
+        print("aqui 4")
+      else:
+        resp = "n"
+        print("aqui 4")
+        break
+    v1+=1
+    v2+=1
+    v3+=1
+  return resp
+def insta2(lista):
+  v1,v2,v3=0,1,2
+  l5=[]
+  for i in range(9):
+    l5.append(lista[v1]+lista[v2]+lista[v3])
+    v1+=3
+    v2+=3
+    v3+=3
+  co=0
+  for i in range(9):
+    lista_s0=[]
+    for x in range(9):
+      lista_s0.append(l5[x][co])
+    for i in range(1,10):
+      if str(i) in lista_s0:
+        resp2 = "s"
+        print("aqui 5")
+      else:
+        resp2 = "n"
+        print("aqui 5")
+        break
+    co+=1
+  return resp2
 n=int(input())
-for x in range(n):
-  for i in range(9*n):
-    if coo == n:
-      break
+nine=0
+nine2=9
+g=0
+for i in range(n):
+  li2=[]
+  for i in range(9):
     lista=[str(i) for i in input().split()]
-    lista2.append(lista) 
-    print
-    nine=0
-    nine2=9
-  while coo < n:
-    lista3 = lista2[nine:nine2]
-    if sudoku(lista3) == "ss":
-      print("\nInstancia ",x+1,"\nSIM",sep="")
-      x+=1
-    if sudoku(lista3) == "nn":
-      print("\nInstancia ",x+1,"\nNAO",sep="")
-      x+=1
-    if coo == n:
-      break
-    lista3=[]
-    nine+=9
-    nine2+=9
-    coo+=1
+    li2.append(lista)
+  li2 = li2[nine:nine2]
+  v1=0
+  v2=3
+  l4=[]
+  for i in range(9):
+    for x in range(3):
+      l4.append(li2[i][v1:v2])
+      v1+=3
+      v2+=3
+    v1=0
+    v2=3
+  nine+=0
+  nine2+=9
+  if insta0(l4) == "s" and insta1(l4) == "s" and insta2(l4) == "s":
+    print("\nInstancia ",g+1,"\nSIM",sep="")
+    g+=1
+  else:
+    print("\nInstancia ",g+1,"\nNAO",sep="")
+    g+=1
