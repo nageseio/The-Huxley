@@ -4,11 +4,9 @@ def insta0(lista):
     for x in range(1,2):
       if str(x) in l4[v1]+l4[v2]+l4[v3]:
         resp0 = "s"
-        print("aqui 1")
       else:
         resp0 = "n"
-        print("aqui 1")
-        break
+        return resp0
     v1+=3
     v2+=3
     v3+=3
@@ -19,11 +17,9 @@ def insta1(lista):
     for x in range(1,2):
       if str(x) in l4[v1]+l4[v2]+l4[v3]:
         resp = "s"
-        print("aqui 2")
       else:
         resp = "n"
-        print("aqui 2")
-        break
+        return resp
     v1+=1
     v2+=1
     v3+=1
@@ -32,11 +28,9 @@ def insta1(lista):
     for x in range(1,2):
       if str(x) in l4[v1]+l4[v2]+l4[v3]:
         resp = "s"
-        print("aqui 3")
       else:
         resp = "n"
-        print("aqui 3")
-        break
+        return resp
     v1+=1
     v2+=1
     v3+=1
@@ -45,11 +39,9 @@ def insta1(lista):
     for x in range(1,2):
       if str(x) in l4[v1]+l4[v2]+l4[v3]:
         resp = "s"
-        print("aqui 4")
       else:
         resp = "n"
-        print("aqui 4")
-        break
+        return resp
     v1+=1
     v2+=1
     v3+=1
@@ -70,13 +62,12 @@ def insta2(lista):
     for i in range(1,10):
       if str(i) in lista_s0:
         resp2 = "s"
-        print("aqui 5")
       else:
         resp2 = "n"
-        print("aqui 5")
-        break
+        return resp2
     co+=1
   return resp2
+
 n=int(input())
 nine=0
 nine2=9
