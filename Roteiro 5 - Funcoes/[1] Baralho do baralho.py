@@ -7,9 +7,9 @@ def Card(cartas):
 	if c[0] == c[1] and c[1] == c[2]: # +Número da menor carta, se todas forem iguais
 		pontos+=c[0]
 	if c[0] == c[1] and c[1] < c[2]: # +Número da menor carta / 2, se existirem apenas duas menores cartas iguais
-		pontos+=(c[0]/2)
+		pontos+=(c[0]//2)
 	if c[1] == c[2] and c[0] < c[2]: # +Número da maior carta / 2, se existirem apenas duas maiores cartas iguais
-		pontos+=(c[2]/2)
+		pontos+=(c[2]//2)
 	if sum(c) == 8: # +8, se a soma das cartas for 8
 		pontos+=8
 	return pontos
