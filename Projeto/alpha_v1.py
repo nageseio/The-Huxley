@@ -82,23 +82,6 @@ def Separador(a):
             valor = f2.index(i)
             del(f2[valor])
     return f2
-def Mini(a):
-    l2=[]
-    for i in range(len(a)-1):
-        l=[]
-        for i2 in range(n):
-            if a[i][i2] != a[i+1][i2]:
-                l.append('-')
-            else:
-                l.append(a[i][i2])
-        l2.append(l)
-    l3=l2[:]
-    for i in l3:
-        c = l3.count(i)
-        if c != 1:
-            v = l2.index(i)
-            del(l2[v])
-    return l2
 sss=Identififcador(l2)
 i2=Identififcador(sss)
 if i2 != []:
