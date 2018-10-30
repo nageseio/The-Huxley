@@ -144,9 +144,8 @@ QUINE=Org2(CA)
 def Org3():
     TT0=["A'","B'","C'","D'","E'","F'","G'","H'","I'","J'","K'","L'","M'","N'","O'","P'","Q'","R'","S'","T'","U'","V'","W'","X'","Y'","Z'",'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
     for i in TT0:
-        if QUINE.count(i) == len(FF) and ss2 != []:
+        if QUINE.count(i) == len(FF) and ss2 != [] and len(CA)>1:
             return i
     return QUINE
 QUINE2=Org3()#SAIDA = QUINE2
-
 print(QUINE2)
