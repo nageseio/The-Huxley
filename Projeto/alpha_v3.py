@@ -1,4 +1,4 @@
-S=[str(i) for i in input().split()]
+S=[str(i) for i in input().split()] #ENTRADA
 for i in range(9, -1, -1):
     if 2**i == len(S):
         n=i
@@ -23,6 +23,7 @@ l2 = Listbin2(S,n,Listbin(n))
 def Identififcador(a):
     elementos = a
     f=[]
+    ff=[]
     if len(elementos) > 1:
         for i in range(len(elementos)):
                 for i3 in range(len(elementos)):
@@ -33,10 +34,12 @@ def Identififcador(a):
                         if elementos[i][i4] != elementos[i3][i4]:
                             l.append('-')
                             c+=1
-                        else:
+                        elif elementos[i][i4] == elementos[i3][i4]:
                             l.append(elementos[i][i4])
                     if '-' in l and c == 1:
                         f.append(l)
+                    elif '-' in l and c == n:
+                        ff.append(elementos[i])
         f2=f[:]
         for i in f:
             if f2.count(i) != 1:
@@ -61,6 +64,7 @@ def Separador2(a):
 def Separador(a):
     elementos = a
     f=[]
+    ff=[]
     for i in range(len(elementos)-1):
         for i2 in range(len(elementos[i])):
             for i3 in range(len(elementos[i+1])):
@@ -71,27 +75,48 @@ def Separador(a):
                 for i4 in range(n):
                     if l1[i4] == l2[i4]:
                         l.append(l1[i4])
-                    else:
+                    elif l1[i4] != l2[i4]:
                         l.append("-")
                         co+=1
+                    if co == n:
+                        ff.append(l1)
                 if co == 1:
                     f.append(l)
-    f2=f[:]
-    for i in f:
-        if f2.count(i) != 1:
-            valor = f2.index(i)
-            del(f2[valor])
-    return f2
-sss=Identififcador(l2)
-i2=Identififcador(sss)
-if i2 != []:
-    F = Identififcador(sss)
-elif sss != []:
-    F = sss
-else:
-    F = l2
+    return ff
+ss=(Separador2(l2))
+cc=(Separador(ss))
+ss1=(Identififcador(l2))
+ss2=(Identififcador(ss1))
+def SimpCC(x):
+    cc=x
+    ccc=cc[:]
+    if len(cc) > 1:
+        for i in range(len(cc)-1):
+            for i2 in range(n):
+                if cc[i][i2] == cc[i+1][i2]:
+                    ccc[i][i2]=('-')
+                    ccc[i+1][i2]=('-')
+                print()
+        return ccc
+    else:
+        return cc
+xc=SimpCC(cc)
+if cc != [] and ss2 != []:
+    for i in range(len(xc)):
+        ss2.append(xc[i])
+    ss3=ss2[:]
+    for i in ss3:
+        co=ss2.count(i)
+        if co > 1:
+            co2=ss2.index(i)
+            del(ss2[co2])
+    FF=ss2
+elif cc == [] and ss2 != []:
+    FF=ss2
+elif cc == [] and ss2 == []:
+    FF=l2
 def Org(a):
-    Alpha=['A','B','C','D']
+    Alpha=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
     lll=[]
     for i in range(len(a)):
         l=[]
@@ -104,13 +129,24 @@ def Org(a):
                 l.append(Alpha[i2])
         lll.append(l)
     return lll
-CA=Org(F)
-def Cu(CA):
+CA=Org(FF)
+def Org2(CA):
     x=0
+    lf=[]
     for i in range(len(CA)):
         for i2 in range(len(CA[i])):
-            print(CA[i][i2],end="")
+            lf.append(CA[i][i2])
         if len(CA) > 1 and x != len(CA)-1:
-            print("+",end="")
+            lf.append("+")
             x+=1
-Cu(CA)
+    return ''.join(lf)
+QUINE=Org2(CA)
+def Org3():
+    TT0=["A'","B'","C'","D'","E'","F'","G'","H'","I'","J'","K'","L'","M'","N'","O'","P'","Q'","R'","S'","T'","U'","V'","W'","X'","Y'","Z'",'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+    for i in TT0:
+        if QUINE.count(i) == len(FF) and ss2 != []:
+            return i
+    return QUINE
+QUINE2=Org3()#SAIDA = QUINE2
+
+print(QUINE2)
