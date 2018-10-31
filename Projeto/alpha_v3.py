@@ -86,7 +86,6 @@ ss = (Separador2(l2))
 cc = (Separador(ss))
 ss1 = (Identififcador(l2))
 ss2 = (Identififcador(ss1))
-#print(ss,"ss","\n",cc,"cc","\n",ss1,"ss1","\n",ss2,"ss2")
 def SimpCC(x):
     cc = x
     ccc = cc[:]
@@ -154,15 +153,24 @@ def Org3():
             m += 1
     if len(S) - 1 == m:
         def OrgEx():
+            y=0
             YY = S[:]
+            Y2 = S[:]
             Alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
                      'U', 'V', 'W', 'X', 'Y', 'Z']
             for i in range(len(S)):
-                if S[i] == '1':
-                    YY[i] = Alpha[i]
-                elif S[i] == '0':
-                    YY[i] = Alpha[i] + "'"
-            YY = ''.join(YY)
+                YY[i] = Alpha[i]
+            for i in range(len(S)):
+                Y2[i] = Alpha[i] + "'"
+            Y3= YY+Y2
+            for i in range(len(Y3)):
+                if len(Y3) > 1 and y != len(Y3)-1 and S[0] == '1':
+                    Y3[i] = Y3[i] + "+"
+                    y+=1
+                elif len(Y3) > 1 and y != len(Y3)-1 and S[0] == '0':
+                    Y3[i] = Y3[i] + "."
+                    y+=1
+            YY = ''.join(Y3)
             return YY
         return OrgEx()
     else:
