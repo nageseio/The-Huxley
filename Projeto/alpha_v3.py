@@ -154,16 +154,16 @@ def Org3():
     if len(S) - 1 == m:
         def OrgEx():
             y=0
-            YY = S[:]
-            Y2 = S[:]
+            YY = []
+            Y2 = []
             Alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
                      'U', 'V', 'W', 'X', 'Y', 'Z']
-            for i in range(len(S)):
-                YY[i] = Alpha[i]
-            for i in range(len(S)):
-                Y2[i] = Alpha[i] + "'"
+            for i in range(n):
+                YY.append(Alpha[i])
+            for i in range(n):
+                Y2.append(Alpha[i] + "'")
             Y3= YY+Y2
-            for i in range(len(Y3)):
+            for i in range(n*2):
                 if len(Y3) > 1 and y != len(Y3)-1 and S[0] == '1':
                     Y3[i] = Y3[i] + "+"
                     y+=1
