@@ -86,6 +86,7 @@ ss = (Separador2(l2))
 cc = (Separador(ss))
 ss1 = (Identififcador(l2))
 ss2 = (Identififcador(ss1))
+#print(ss,cc,ss1,ss2)
 def SimpCC(x):
     cc = x
     ccc = cc[:]
@@ -114,8 +115,11 @@ elif cc == [] and ss2 != []:
     FF = ss2
 elif cc == [] and ss2 == []:
     FF = l2
+elif ss1 == []:
+    FF = l2
 else:
     FF = ss1
+#print(FF,"FF")
 def Org(a):
     Alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
     lll = []
