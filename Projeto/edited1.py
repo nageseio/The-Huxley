@@ -14,21 +14,16 @@ def Listbin(Var):
             listbin[i].insert(0,0)
         listbin[i].insert(0, str(i))
     return listbin
-
 Ma=[]
 def Listbin2(a,b,c):
     listbin2=[]
-
     for i in range(2**b):
         if a[i] == "1":
             listbin2.append(c[i])
     for i in range(len(listbin2)):
         Ma.append(int(listbin2[i][0]))
     return listbin2
-
-
 l2 = Listbin2(Entrada, Var, Listbin(Var))
-
 def Separador2(a):
     li2 = []
     for i3 in range(Var+1):
@@ -43,7 +38,6 @@ def Separador2(a):
         del (li2[c])
     return li2
 cc = Separador2(l2)
-
 def Separador(a):
     elementos = a
     f = []
@@ -93,26 +87,19 @@ def Separador(a):
         s=Separador2(f)
         return Separador(s)
 ss = (Separador(cc))
-
 F=[]
 for i in range(len(ss)):
     for i2 in range(len(ss[i])):
         F.append(ss[i][i2])
-
-
 for i in F:
-    if len(i[0]) > 1:
+    if len(i[0]) > 1 and type(i[0][1]) == list:
         while len(i[0])> 1:
-            i[0]=(i[0][0]+i[0][1])
             if i[0][1] != list():
                 break
-
-#for i in F:
-#    if list(i[0]) is True:
-#        continue
-#    else:
-#        i[0]=[i[0]]
-
+            i[0]=(i[0][0]+i[0][1])
+for i in F:
+    if type(i[0]) == str:
+        i[0] = [i[0]]
 c=[]
 for i in F:
     c2=[]
@@ -121,10 +108,8 @@ for i in F:
         c2.append(st)
     c3=''.join(c2)
     c.append(c3)
-
 Mapa={}
 co=0
-
 AB=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 for i in AB:
     if co == len(F):
@@ -134,7 +119,6 @@ for i in AB:
         l.append(" ")
     Mapa[i]= l
     co+=1
-
 ContadorMapa=0
 for i in Mapa:
     for i3 in F[ContadorMapa][0]:
