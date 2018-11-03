@@ -125,7 +125,7 @@ for i in F:
 Mapa={}
 co=0
 
-AB=['A','B','C','D','E','F','G','H','I','J']
+AB=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 for i in AB:
     if co == len(F):
         break
