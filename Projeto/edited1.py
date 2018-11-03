@@ -1,14 +1,3 @@
-
-
-
-d={}
-d[1]='A'
-print(d)
-d[2]='B','C'
-s = str(d[1])
-s2 = str(d[2][0])
-print(s+s2)
-
 Entrada=[str(i) for i in input().split()] #ENTRADA
 for i in range(9, -1, -1):
     if 2**i == len(Entrada):
@@ -111,6 +100,19 @@ for i in range(len(ss)):
         F.append(ss[i][i2])
 
 
+for i in F:
+    if len(i[0]) > 1:
+        while len(i[0])> 1:
+            i[0]=(i[0][0]+i[0][1])
+            if i[0][1] != list():
+                break
+
+#for i in F:
+#    if list(i[0]) is True:
+#        continue
+#    else:
+#        i[0]=[i[0]]
+
 c=[]
 for i in F:
     c2=[]
@@ -119,22 +121,27 @@ for i in F:
         c2.append(st)
     c3=''.join(c2)
     c.append(c3)
-print(c)
 
-d={}
+Mapa={}
 co=0
-for i in Ma:
+
+AB=['A','B','C','D','E','F','G','H','I','J']
+for i in AB:
+    if co == len(F):
+        break
     l=[]
-    for i2 in range(len(F)):
+    for i2 in range(len(Ma)):
         l.append(" ")
-    d[i]= l,c[co]
+    Mapa[i]= l
     co+=1
 
-print(F)
-print(d)
-print(Ma,"ma")
-for i in d:
-  for i3 in i2[0]:
-      i3=Ma.index(int(i3))
-      d[i][0][i3]='O'
-  print(d,"d")
+ContadorMapa=0
+for i in Mapa:
+    for i3 in F[ContadorMapa][0]:
+        lu = Ma.index(int(i3))
+        Mapa[i][lu]='O'
+    if ContadorMapa == len(F):
+        break
+    else:
+        ContadorMapa+=1
+print(Mapa)
