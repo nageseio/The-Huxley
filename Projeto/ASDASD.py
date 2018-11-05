@@ -1,7 +1,10 @@
 Entrada=[str(i) for i in input().split()] #ENTRADA
-for i in range(9, -1, -1):
+i=0
+while True:
     if 2**i == len(Entrada):
         Var=i
+        break
+    i+=1
 
 def ListaBinario(Var):
     listbin = []
