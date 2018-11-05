@@ -1,0 +1,12 @@
+1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1
+0 1 1 1 1 1 0 1
+1 1 0 1 0 0 1 0
+1 1 1 0 0 1 1 1
+1 0 1 0 1 0 1 1
+1 1 0 1 1 0 0 1
+
+http://brinks.guisehn.com/tabela-vdd/
+
+http://quinemccluskey.com
+
+http://www.mathematik.uni-marburg.de/~thormae/lectures/ti1/code/qmc/index.html
