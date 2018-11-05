@@ -47,7 +47,7 @@ def SeparadorTermos(a,ff):
         quantidadede1s = lista.index([])
         del (lista[quantidadede1s])
     f = []
-    fr=lista
+    fr=f
     for i in range(len(lista)-1):
         for i2 in range(len(lista[i])):
             for i3 in range(len(lista[i+1])):
@@ -85,8 +85,12 @@ def SeparadorTermos(a,ff):
                     f.append(l)
                 if f != []:
                     fr=f
+                    exc=ff
     if f == []:
-        print(ff)
+        if fr == []:
+            if ff == []:
+                return exc
+            return ff
         return fr
     else:
         return SeparadorTermos(f,ff)
