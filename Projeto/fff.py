@@ -29,8 +29,14 @@ def ListaImplicantes(a,b,c):
     return listbin2
 
 l2 = ListaImplicantes(Entrada, Var, ListaBinario(Var))
-
+print(l2)
 ff,fr=[],[]
+
+
+
+
+
+
 def SeparadorTermos(a,ff,fr):
     f=a
     fr=f
@@ -55,7 +61,7 @@ def SeparadorTermos(a,ff,fr):
                 l1,l2 = lista[i][i2],lista[i+1][i3]
                 li2.append(l1[1])
                 li2.append(l2[1])
-                for i4 in range(2,Var+2):
+                for i4 in range(2,len(l1)):
                     if l1[i4] == l2[i4]:
                         l.append(l1[i4])
                     elif l1[i4] != l2[i4]:
@@ -93,6 +99,7 @@ def SeparadorTermos(a,ff,fr):
     else:
         return SeparadorTermos(f,ff,fr)
 dc=SeparadorTermos(l2,ff,fr)
+
 for i in dc:
     if type(i[1]) != list:
         i[1]=[i[1]]
@@ -102,42 +109,48 @@ for i in dc:
             l=i[1][i2]+i[1][i2+1]
         i[1]=l
 dx=dc[:]
-for i in range(len(dc)):
-    for i2 in range(len(dc)):
-        if i != i2:
-            c=0
-            l1=[]
-            l2=[]
-            for i3 in range(2,Var+2):
-                l1.append(dc[i][i3])
-            for i4 in range(2, Var + 2):
-                l2.append(dc[i2][i4])
-            if l1 == l2:
-                if dc[i2][0] == 'v' or dc[i2][0]=='v':
-                    break
-                else:
-                    if dc[i2] in dx:
-                        ind=dx.index(dc[i2])
-                        del(dx[ind])
-                        dc[i2][0]= 'v'
-                        dc[i][0]= 'v'
 for i in dx:
-    i[0]=' '
-dc,co=dx[:],0
-def Eraser(lista,co):
-    c=lista.count(lista[co])
-    if c>1:
-        del(lista[co])
-    else:
-        co+=1
-    if c ==1:
-        cx=0
-        for i in lista:
-            cx+=lista.count(i)
-        if cx == len(lista):
-            return lista
-    return Eraser(lista,co)
-cxx=Eraser(dc,co)
+    if i[0] == 'v':
+        ind=dx.index(i)
+        dx[ind]=[]
+while [] in dx:
+    ind=dx.index([])
+    del(dx[ind])
+def DC(list):
+    dc=list
+    x=len(dc)
+    for i in range(len(dc)):
+        l1 = dc[i]
+        for i2 in range(len(dc)):
+            if i != i2:
+                c=0
+                l2=dc[i2]
+                if l1 == []:
+                    break
+                if l2 == []:
+                    break
+                for i3 in range(2,len(l1)):
+                    if l1[i3] == l2[i3]:
+                        c+=1
+                if c == Var:
+                    ind=dc.index(l2)
+                    dc[ind]=[]
+    while [] in dc:
+        ind=dc.index([])
+        del(dc[ind])
+    if x == len(dc):
+        return dc
+    return DC(dc)
+fd=DC(dx)
+for i in fd:
+    co=fd.count(i)
+    if co > 1:
+        ind=fd.index(i)
+        fd[ind]=[]
+while [] in fd:
+    ind=fd.index([])
+    del(fd[ind])
+cxx=fd
 Mapa,co={},0
 AB=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 for i in AB:
@@ -225,6 +238,7 @@ else:
         del (f[0])
         return f
     list = OnPatrick(Mapa2, f)
+    print(Mapa)
     f = []
     def Rec(list, f):
         if list == []:
