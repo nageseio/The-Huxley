@@ -5,7 +5,6 @@ while True:
         Var=i
         break
     i+=1
-
 def ListaBinario(Var):
     listbin = []
     for i in range(2**Var):
@@ -20,9 +19,6 @@ def ListaBinario(Var):
         listbin[i].insert(0, str(' '))
     return listbin
 Ma=[]
-
-
-
 def ListaImplicantes(a,b,c):
     listbin2=[]
     for i in range(2**b):
@@ -32,9 +28,7 @@ def ListaImplicantes(a,b,c):
         Ma.append(int(listbin2[i][1]))
     return listbin2
 
-
 l2 = ListaImplicantes(Entrada, Var, ListaBinario(Var))
-print(Ma)
 
 ff,fr=[],[]
 def SeparadorTermos(a,ff,fr):
@@ -98,7 +92,6 @@ def SeparadorTermos(a,ff,fr):
         return fr+ff
     else:
         return SeparadorTermos(f,ff,fr)
-
 dc=SeparadorTermos(l2,ff,fr)
 for i in dc:
     if type(i[1]) != list:
@@ -130,10 +123,7 @@ for i in range(len(dc)):
                         dc[i][0]= 'v'
 for i in dx:
     i[0]=' '
-dc=dx[:]
-
-
-co=0
+dc,co=dx[:],0
 def Eraser(lista,co):
     c=lista.count(lista[co])
     if c>1:
@@ -171,11 +161,9 @@ for i in Mapa:
         break
     else:
         ContadorMapa+=1
-
 Mapa2=[]
 for i in Mapa:
     Mapa2.append(Mapa[i])
-
 Contador = 0
 def Patrick(Mapa,Contador):
     for x in range(len(Mapa2[0])):
@@ -184,7 +172,7 @@ def Patrick(Mapa,Contador):
             c.append(Mapa2[y][x])
         if c.count('O') > 1:
             Contador+=1
-    if Contador == len(Mapa2):
+    if Contador == len(Ma):
         return 'OnPatrick'
     else:
         return 'NoPatrick'
@@ -206,10 +194,7 @@ def Organizer(Mapa,Contador,list):
         ind = list.index([])
         del(list[ind])
     return list
-
 cx2=(Organizer(Mapa2,Contador,list))
-print(cx2)
-print(Mapa)
 def Essenciais(Mapa,c):
     for i in c:
         for x in Mapa:
@@ -221,21 +206,70 @@ if P == 'NoPatrick':
         print(Essenciais(Mapa2,cx2))
     else:
         print(cx2)
-        
-        
-        
-        
-1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1
-1 0 0 0 1 0 0 0 1 0 1 1 1 1 0 1
-0 1 1 1 1 1 0 1
-1 1 0 1 0 0 1 0
-1 1 1 0 0 1 1 1
-1 0 1 0 1 0 1 1
-1 1 0 1 1 0 0 1
-1 1 0 0 1 0 1 1
+else:
 
-http://brinks.guisehn.com/tabela-vdd/
+    Mapaind = []
+    for i in Mapa:
+        Mapaind.append(i)
+    f = []
 
-http://quinemccluskey.com
-
-http://www.mathematik.uni-marburg.de/~thormae/lectures/ti1/code/qmc/index.html
+    def OnPatrick(Mapa2, f):
+        for x in range(len(Mapa2[0])):
+            c = []
+            l = []
+            for y in range(len(Mapa2)):
+                c.append(Mapa2[y][x])
+                if Mapa2[y][x] == 'O':
+                    ind = c.index('O')
+                    l.append(Mapaind[ind])
+                    c[ind] = '0'
+            f.append(l)
+        del (f[0])
+        return f
+    list = OnPatrick(Mapa2, f)
+    def Rec(list, l):
+        if len(list) == 1:
+            l.append(list[0])
+            list = l[:]
+            l = []
+        if len(list) > 1 or list == []:
+            if list != []:
+                f = []
+                l2 = list[1]
+            else:
+                f = []
+                list = l[:]
+                l = []
+                l2 = list[1]
+            for i in list[0]:
+                for i2 in l2:
+                    f.append(i + i2)
+            l.append(f)
+        if len(l) == 1 and len(list) == 2:
+            return f
+        if len(list) > 1:
+            if len(list) == 2:
+                list = []
+            else:
+                del (list[0])
+                if len(list) > 1:
+                    del (list[0])
+        return Rec(list, l)
+    l = []
+    list2, co, c = Rec(list, l), 0, 'ABCDEFGHIJ'
+    for i in list2:
+        l = []
+        for i2 in range(len(i)):
+            l.append(i[i2])
+        for i3 in l:
+            if l.count(i3) > 1:
+                ind = l.index(i3)
+                del (l[ind])
+        list2[co] = ''.join(l)
+        co += 1
+    print(list2)
+    for i in list2:
+        if len(i) <= len(c):
+            c = i
+    print(Mapa)
+    print(c)
