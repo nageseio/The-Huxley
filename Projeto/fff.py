@@ -207,12 +207,10 @@ if P == 'NoPatrick':
     else:
         print(cx2)
 else:
-
     Mapaind = []
     for i in Mapa:
         Mapaind.append(i)
     f = []
-
     def OnPatrick(Mapa2, f):
         for x in range(len(Mapa2[0])):
             c = []
@@ -227,36 +225,32 @@ else:
         del (f[0])
         return f
     list = OnPatrick(Mapa2, f)
-    def Rec(list, l):
+    f = []
+    def Rec(list, f):
+        if list == []:
+            list = f[:]
+            f = []
         if len(list) == 1:
-            l.append(list[0])
-            list = l[:]
-            l = []
-        if len(list) > 1 or list == []:
-            if list != []:
-                f = []
-                l2 = list[1]
-            else:
-                f = []
-                list = l[:]
-                l = []
-                l2 = list[1]
-            for i in list[0]:
-                for i2 in l2:
-                    f.append(i + i2)
-            l.append(f)
-        if len(l) == 1 and len(list) == 2:
-            return f
+            f.append(list[0])
+            list = f[:]
+            f = []
+        l = []
+        for i in list[0]:
+            for i2 in list[1]:
+                l.append(i + i2)
+        f.append(l)
+        if len(f) == 1 and len(list) == 2:
+            return l
+        if len(list) == 2:
+            del (list[0])
+            del (list[0])
         if len(list) > 1:
-            if len(list) == 2:
-                list = []
-            else:
+            del (list[0])
+            if len(list) != 1:
                 del (list[0])
-                if len(list) > 1:
-                    del (list[0])
-        return Rec(list, l)
-    l = []
-    list2, co, c = Rec(list, l), 0, 'ABCDEFGHIJ'
+        return Rec(list, f)
+    xx = Rec(list, f)
+    list2,co,c,cv = xx,0,'',0
     for i in list2:
         l = []
         for i2 in range(len(i)):
@@ -264,12 +258,14 @@ else:
         for i3 in l:
             if l.count(i3) > 1:
                 ind = l.index(i3)
-                del (l[ind])
-        list2[co] = ''.join(l)
+                l[ind] = '0'
         co += 1
-    print(list2)
+        xc = ''.join(l)
+        ind = list2.index(i)
+        list2[ind] = xc
     for i in list2:
-        if len(i) <= len(c):
+        if i.count('0') >= cv:
+            x = i.count('0')
+            cv = x
             c = i
-    print(Mapa)
     print(c)
