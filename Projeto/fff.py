@@ -142,6 +142,13 @@ while [] in fd:
     ind=fd.index([])
     del(fd[ind])
 cxx=fd
+l=[]
+for i in cxx:
+  if len(i[1]) > 1 and type(i[1][0]) == list:
+    for i2 in range(len(i[1])):
+      l=l+i[1][i2]
+    i[1]=l
+    l=[]
 def FMapa(cxx):
     Mapa,co={},0
     AB=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -211,6 +218,8 @@ def Essenciais(Mapa,c):
 if P == 'NoPatrick':
     if len(cx2) == 2 and len(Mapa2) > 2:
         print(Essenciais(Mapa2,cx2))
+    elif len(cx2) == 1 and len(cxx[0][1]) == len(Ma):
+      print(cx2)
     elif len(cx2) == 1 and Var > 3:
         def Who(list,list2):
             for i in list:
