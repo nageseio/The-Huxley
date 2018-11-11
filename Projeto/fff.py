@@ -216,7 +216,9 @@ def Essenciais(Mapa,c):
                 c= c+[x[0]]
                 return c
 if P == 'NoPatrick':
-    if len(cx2) == 2 and len(Mapa2) > 2:
+    if len(Entrada) == len(Ma):
+      print(1)
+    elif len(cx2) == 2 and len(Mapa2) > 2:
         print(Essenciais(Mapa2,cx2))
     elif len(cx2) == 1 and len(cxx[0][1]) == len(Ma):
       print(cx2)
