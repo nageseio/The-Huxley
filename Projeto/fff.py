@@ -1,4 +1,4 @@
-Entrada=[str(i) for i in input().split()] #ENTRADA
+Entrada=[str(i) for i in input().split()]
 i=0
 while True:
     if 2**i == len(Entrada):
@@ -27,16 +27,8 @@ def ListaImplicantes(a,b,c):
     for i in range(len(listbin2)):
         Ma.append(int(listbin2[i][1]))
     return listbin2
-
 l2 = ListaImplicantes(Entrada, Var, ListaBinario(Var))
-print(l2)
 ff,fr=[],[]
-
-
-
-
-
-
 def SeparadorTermos(a,ff,fr):
     f=a
     fr=f
@@ -99,7 +91,6 @@ def SeparadorTermos(a,ff,fr):
     else:
         return SeparadorTermos(f,ff,fr)
 dc=SeparadorTermos(l2,ff,fr)
-
 for i in dc:
     if type(i[1]) != list:
         i[1]=[i[1]]
@@ -151,29 +142,32 @@ while [] in fd:
     ind=fd.index([])
     del(fd[ind])
 cxx=fd
-Mapa,co={},0
-AB=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-for i in AB:
-    if co == len(cxx):
-        break
-    l=[]
-    for i2 in range(len(Ma)):
-        l.append(" ")
-    Mapa[i]= l
-    co+=1
-ContadorMapa=0
-for i in Mapa:
-    for i3 in cxx[ContadorMapa][1]:
-        lu = Ma.index(int(i3))
-        Mapa[i][lu]='O'
-        l2=[]
-    for n2 in range(2,Var+2):
-      l2.append(cxx[ContadorMapa][n2])
-    Mapa[i].insert(0, l2)
-    if ContadorMapa == len(cxx):
-        break
-    else:
-        ContadorMapa+=1
+def FMapa(cxx):
+    Mapa,co={},0
+    AB=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    for i in AB:
+        if co == len(cxx):
+            break
+        l=[]
+        for i2 in range(len(Ma)):
+            l.append(" ")
+        Mapa[i]= l
+        co+=1
+    ContadorMapa=0
+    for i in Mapa:
+        for i3 in cxx[ContadorMapa][1]:
+            lu = Ma.index(int(i3))
+            Mapa[i][lu]='O'
+            l2=[]
+        for n2 in range(2,Var+2):
+          l2.append(cxx[ContadorMapa][n2])
+        Mapa[i].insert(0, l2)
+        if ContadorMapa == len(cxx):
+            break
+        else:
+            ContadorMapa+=1
+    return Mapa
+Mapa=FMapa(cxx)
 Mapa2=[]
 for i in Mapa:
     Mapa2.append(Mapa[i])
@@ -217,6 +211,51 @@ def Essenciais(Mapa,c):
 if P == 'NoPatrick':
     if len(cx2) == 2 and len(Mapa2) > 2:
         print(Essenciais(Mapa2,cx2))
+    elif len(cx2) == 1 and Var > 3:
+        def Who(list,list2):
+            for i in list:
+                l = []
+                co = 0
+                if i != []:
+                    for i2 in range(2, len(i)):
+                        l.append(i[i2])
+                for i3 in range(len(list2[0])):
+                    if l[i3] == list2[0][i3]:
+                        co += 1
+                if co == Var:
+                    ele = i[1]
+                    return ele
+        ele = Who(fd,cx2)
+        def Who2(ele, fd):
+            list=fd
+            list2 = list[:]
+            for i in list:
+                co = 0
+                for i2 in i[1]:
+                    if i2 in ele:
+                        co += 1
+                if co > 0:
+                    ind = list.index(i)
+                    list2[ind] = []
+            while [] in list2:
+                ind = list2.index([])
+                del (list2[ind])
+            return list2
+        m2=Who2(ele, fd)
+        mm2=FMapa(m2)
+        list=[]
+        Mapa22=Mapa2[:]
+        Mapa2 = []
+        for i in mm2:
+            Mapa2.append(mm2[i])
+        for x in range(len(Mapa2[0])):
+            c = []
+            for y in range(len(Mapa2)):
+                c.append(Mapa2[y][x])
+            if c.count('O') == 1:
+                ind = c.index('O')
+                list.append(Mapa2[ind][0])
+        print(list+cx2)
     else:
         print(cx2)
 else:
@@ -238,7 +277,6 @@ else:
         del (f[0])
         return f
     list = OnPatrick(Mapa2, f)
-    print(Mapa)
     f = []
     def Rec(list, f):
         if list == []:
@@ -282,4 +320,6 @@ else:
             x = i.count('0')
             cv = x
             c = i
+    for i in Mapa:
+        print(i,Mapa[i])
     print(c)
