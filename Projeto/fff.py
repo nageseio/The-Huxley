@@ -29,6 +29,41 @@ def ListaImplicantes(a,b,c):
     return listbin2
 l2 = ListaImplicantes(Entrada, Var, ListaBinario(Var))
 ff,fr=[],[]
+def ultimafuncao(n):
+    ultimalista=''
+    string=''
+    barrado=["A'","B'","C'","D'","E'","F'","G'","H'","I'","J'","K'","L'","M'","N'","O'","P'","Q'","R'","S'","T'","U'","V'","W'","X'","Y'","Z'"]
+    normal=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    for i in n:
+        for x in range(len(i)):
+            if i[x]!='-':
+                if i[x]==0:
+                    ind=i.index(0)
+                    i[x]=barrado[ind]
+                elif i[x]==1:
+                    ind=i.index(1)
+                    i[x]=normal[ind]
+            else:
+                i[x]=''
+    cont1=0
+    for i in n:
+        juio=[]
+        if type(i)==list:
+            for x in i:
+                if x!='':
+                    juio.append(x)
+        else:
+            i=''.join(i)
+            ultimalista+=i
+        juio=''.join(juio)
+        ultimalista+=juio
+        cont2=(len(n)-1)
+        if len(n)>1:
+            if cont1!=cont2:
+                cont1+=1
+                ultimalista+='+'
+    uiop = ''.join(ultimalista)
+    return(uiop)
 def SeparadorTermos(a,ff,fr):
     f=a
     fr=f
@@ -219,9 +254,10 @@ if P == 'NoPatrick':
     if len(Entrada) == len(Ma):
       print(1)
     elif len(cx2) == 2 and len(Mapa2) > 2:
-        print(Essenciais(Mapa2,cx2))
+        cx2=(Essenciais(Mapa2,cx2))
+        print(ultimafuncao(cx2))
     elif len(cx2) == 1 and len(cxx[0][1]) == len(Ma):
-      print(cx2)
+      print(ultimafuncao(cx2))
     elif len(cx2) == 1 and Var > 3:
         def Who(list,list2):
             for i in list:
@@ -266,9 +302,10 @@ if P == 'NoPatrick':
             if c.count('O') == 1:
                 ind = c.index('O')
                 list.append(Mapa2[ind][0])
-        print(list+cx2)
+        cx2=(list+cx2)
+        print(ultimafuncao(cx2))
     else:
-        print(cx2)
+        print(ultimafuncao(cx2))
 else:
     Mapaind = []
     for i in Mapa:
@@ -331,6 +368,12 @@ else:
             x = i.count('0')
             cv = x
             c = i
+    Mapaf={}
     for i in Mapa:
-        print(i,Mapa[i])
-    print(c)
+        Mapaf[i]=Mapa[i]
+    l=[]
+    for i in Mapaf:
+        for i2 in c:
+            if i2 == i:
+                l.append(Mapaf[i][0])
+    print(ultimafuncao(l))
