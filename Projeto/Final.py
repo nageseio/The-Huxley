@@ -255,12 +255,12 @@ def Essenciais(Mapa,c):
                 return c
 if P == 'NoPatrick':
     if len(Entrada) == len(Ma):
-        print(1,'1')
+        print(1)
     elif len(cx2) == 2 and len(Mapa2) > 2:
         cx2=(Essenciais(Mapa2,cx2))
-        print(ultimafuncao(cx2),'2')
+        print(ultimafuncao(cx2))
     elif len(cx2) == 1 and len(cxx[0][1]) == len(Ma):
-      print(ultimafuncao(cx2),'3')
+      print(ultimafuncao(cx2))
     elif Var>3:
         Mapa3 = FMapa(fd)
         Mapaind = []
