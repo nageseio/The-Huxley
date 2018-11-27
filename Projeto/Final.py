@@ -256,12 +256,12 @@ def Essenciais(Mapa,c):
 if P == 'NoPatrick':
     if len(Entrada) == len(Ma):
         print(1)
-    elif len(cx2) == 2 and len(Mapa2) > 2:
+    elif len(cx2) == 2 and len(Mapa2) > 2 and Var <=2:
         cx2=(Essenciais(Mapa2,cx2))
         print(ultimafuncao(cx2))
     elif len(cx2) == 1 and len(cxx[0][1]) == len(Ma):
       print(ultimafuncao(cx2))
-    elif Var>3:
+    elif Var>2:
         Mapa3 = FMapa(fd)
         Mapaind = []
         for i in Mapa3:
@@ -369,7 +369,13 @@ if P == 'NoPatrick':
                 if len(list) != 1:
                     del (list[0])
             return Rec(list, f)
-        if lista == []:
+        if lista != []:
+            for i in lista:
+                x=i[0]
+                E=Mapa[x][0]
+                cx2.append(E)
+                break
+        if lista == [] or len(lista) == 1:
             print(ultimafuncao(cx2))
             quit()
         xx = Rec(lista, f)
