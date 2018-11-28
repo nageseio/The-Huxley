@@ -344,8 +344,6 @@ def funcaoai():
                                     if type(Mapa2[x][y]) != list:
                                         Mapa2[x][y] = ' '
                         f = []
-
-
                         def OnPatrick(Mapa2, f):
                             for x in range(len(Mapa2[0])):
                                 c = []
@@ -370,11 +368,11 @@ def funcaoai():
                                 cx2.append(E)
                                 break
                         if lista == [] or len(lista) == 1:
-                            resultadofinal=ultimafuncao(cx2)
+                            resultadofinal = ultimafuncao(cx2)
                         else:
                             resultadofinal = ultimafuncao(cx2)
                     else:
-                        resultadofinal=ultimafuncao(cx2)
+                        resultadofinal = ultimafuncao(cx2)
                 else:
                     Mapaind = []
                     for i in Mapa:
@@ -454,7 +452,6 @@ def funcaoai():
         else:
             saida.delete("1.0", END)
             saida.insert(INSERT, "Digite apenas binários!")
-
     except:
         global contador
         contador = 0
@@ -467,9 +464,6 @@ def funcaoai():
         else:
             saida.delete("1.0", END)
             saida.insert(INSERT, "Digite apenas binários com espaçamento  entre cada número!")
-
-
-
 i.geometry("400x300")
 i.title("Simplificador")
 saida = Text(i, height = 3, width = 40)
