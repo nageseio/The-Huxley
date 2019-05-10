@@ -1,4 +1,4 @@
-def QuantidadeVariaveis(Entrada):
+def QuantidadeVariaveis(Entrada):#Determina a quantida de variaveis a partir da Entrada.
     i=1
     while True:
         if 2**i == len(Entrada):
@@ -7,7 +7,7 @@ def QuantidadeVariaveis(Entrada):
             return 0
         i+=1
 
-def criarListaBinario(Var,ums):
+def criarListaBinario(Var,ums):#Cria a lista em binaro com base na quantidade de variaveis e descartas os termos irrevelantes.
     listbin = []
     listbin2=[]
     for i in range(2**Var):
@@ -25,7 +25,7 @@ def criarListaBinario(Var,ums):
             listbin2.append(listbin[i])
     return listbin2
 
-def SepararUm1(Lista, Cont, ListaTermos, MAX):
+def SepararUm1(Lista, Cont, ListaTermos, MAX):#Sepera os termos em listas diferentes, pela quantidade de 1's em cada termo.
     l=[]
     if Cont > MAX:
         return ListaTermos
@@ -41,7 +41,7 @@ def SepararUm1(Lista, Cont, ListaTermos, MAX):
     return SepararUm1(Lista, Cont, ListaTermos, MAX)
 
 
-def Comparar0(L1,L2):
+def Comparar0(L1,L2):#Compara dois termos e verifica se a comparação e o termo obitido será valido
     L=[' ', []]
     M=0
     for i in range(2,len(L1)):
@@ -57,7 +57,7 @@ def Comparar0(L1,L2):
         return []
 
 
-def Comparar(LB):
+def Comparar(LB):#Seleciona os termos que serao comparados, e retorna uma lista contendo as comparaçoes.
     L=[]
     for i in range(len(LB)-1):
         for i2 in LB[i]:
@@ -73,13 +73,13 @@ def Comparar(LB):
                 L.append(n2)
     return L
 
-def MinimizadorVerificador(Contador, ListaVazia, L):
+def MinimizadorVerificador(Contador, ListaVazia, L):#função secundaria de Minimizador, para determinar uma parada valida
     Contador,ListaVazia = 0,[]
     Lista = SepararUm1(L, Contador, ListaVazia, QuantidadeVariaveis)
     Lista2 = Comparar(Lista)
     return Lista2
 
-def Minimizador(Contador, ListaVazia, L):
+def Minimizador(Contador, ListaVazia, L):#Usa as funcoes criadas para manipular os termos e retornar elementos validos, que serao usados para formar o mapa dos implicantes(termos).
     Contador,ListaVazia = 0,[]
     Lista = SepararUm1(L, Contador, ListaVazia, QuantidadeVariaveis)
     Lista2 = Comparar(Lista)
@@ -90,17 +90,38 @@ def Minimizador(Contador, ListaVazia, L):
     else:
         return Lista2
 
+def Diferenciador(I0,I1):#Verificar se dois termos são iguais.
+    if I0 != [] and I1 != []:
+        if I0[2::] == I1[2::]:
+            return True
+        else:
+            return False
+    return False
+
+def LimparRepetidos(Lista):#Verifica se existe elementos repetidos e os remove.
+    for i in range(len(Lista)):
+        for i2 in range(len(Lista)):
+            if i != i2:
+                if Diferenciador(Lista[i],Lista[i2]) == True:
+                    Lista[i2]= []
+    while [] in Lista:
+        del(Lista[Lista.index([])])
+    return Lista
 
 
 
 
 
 
-def inicializar():
-    Entrada = input().split()
-    QuantidadeVariaveis = QuantidadeVariaveis(Entrada)
-    ListaA = criarListaBinario(QuantidadeVariaveis,Entrada)
-    cont,ListaTermos = 0,[]
-    ListaB = Minimizador(cont, ListaTermos, ListaA)
 
-inicializar()
+Entrada = input().split()
+QuantidadeVariaveis = QuantidadeVariaveis(Entrada)
+ListaA = criarListaBinario(QuantidadeVariaveis,Entrada)
+cont,ListaTermos = 0,[]
+ListaB = Minimizador(cont, ListaTermos, ListaA)
+ListaC = LimparRepetidos(ListaB)
+
+for i in ListaC:
+    print(i)
+
+
