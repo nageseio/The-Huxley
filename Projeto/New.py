@@ -109,10 +109,52 @@ def LimparRepetidos(Lista):#Verifica se existe elementos repetidos e os remove.
     return Lista
 
 
+def criarMapa(Lista,QV):#Cria o mapa, que possibilita a extração dos implicantes, para obter a expresão minimizada
+    Mapa={}
+    l=[]
+    l2=[]
+    for i in Lista:
+        for i2 in i[1]:
+            if int(i2) not in l2:
+                l2.append(int(i2))
+    l2.sort()
+    for i2 in range(len(l2)):
+        l.append(' ')
+    for i in range(len(Lista)):
+        Mapa[str(i)] = [Lista[i][1]]+[l[:]]
+    for i in Mapa:
+        for i2 in Mapa[i][0]:
+            Mapa[i][1][l2.index(int(i2))] = 'O'
+    for i in Mapa:
+        print(Mapa[i])
+    return Mapa
 
+def verificadorPetrick(mapa):
+    Maux=[]
+    for i in mapa:
+        Maux.append(mapa[i][1])
+    contador1 = 0
+    for x in range(len(Maux[0])):
+        contador2 = 0
+        for y in range(len(Maux)):
+            if Maux[y][x] == 'O':
+                contador2+=1
+        if contador2 > 1:
+            contador1+=1
+    if contador1 == len(Maux[0]):
+        return True
+    else:
+        return False
 
-
-
+def Final(mapa):
+    l2=[]
+    for x in range(len(mapa['0'][1])):
+        l = []
+        for i in mapa:
+                if mapa[i][1][x] == 'O':
+                    l.append(i)
+        l2.append(l)
+    return l2
 
 Entrada = input().split()
 QuantidadeVariaveis = QuantidadeVariaveis(Entrada)
@@ -121,7 +163,9 @@ cont,ListaTermos = 0,[]
 ListaB = Minimizador(cont, ListaTermos, ListaA)
 ListaC = LimparRepetidos(ListaB)
 
-for i in ListaC:
-    print(i)
+Mapa = criarMapa(ListaC,QuantidadeVariaveis)
 
+x = verificadorPetrick(Mapa)
+print(x)
 
+Final(Mapa)
