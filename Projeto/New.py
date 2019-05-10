@@ -125,8 +125,6 @@ def criarMapa(Lista,QV):#Cria o mapa, que possibilita a extração dos implicant
     for i in Mapa:
         for i2 in Mapa[i][0]:
             Mapa[i][1][l2.index(int(i2))] = 'O'
-    for i in Mapa:
-        print(Mapa[i])
     return Mapa
 
 def verificadorPetrick(mapa):
@@ -156,6 +154,48 @@ def Final(mapa):
         l2.append(l)
     return l2
 
+
+def Multiplicador(Termo1,Termo2):
+    M=[]
+    for i in Termo1:
+        for i2 in Termo2:
+            if i2== i:
+                M.append(i)
+            elif i2 not in i:
+                x = i+i2
+                if x not in M:
+                    M.append(x)
+    return M
+
+
+
+def Extracao(Lista):
+    ListaExt=[]
+    x = len(Lista)
+    if x == 1:
+        return Lista
+    if x%2 == 0:
+        c1=0
+        c=1
+        for i in range(int(x/2)):
+            y = Multiplicador(Lista[c1],Lista[c])
+            ListaExt.append(y)
+            c1+=2
+            c+=2
+    else:
+        c1=0
+        c=1
+        for i in range((x//2)):
+            ListaExt.append(Multiplicador(Lista[c1],Lista[c]))
+            c1+=2
+            c+=2
+        ListaExt.append(Lista[-1])
+    return Extracao(ListaExt)
+
+
+
+
+
 Entrada = input().split()
 QuantidadeVariaveis = QuantidadeVariaveis(Entrada)
 ListaA = criarListaBinario(QuantidadeVariaveis,Entrada)
@@ -164,8 +204,40 @@ ListaB = Minimizador(cont, ListaTermos, ListaA)
 ListaC = LimparRepetidos(ListaB)
 
 Mapa = criarMapa(ListaC,QuantidadeVariaveis)
-
+print(Mapa)
 x = verificadorPetrick(Mapa)
-print(x)
 
-Final(Mapa)
+x2 = Final(Mapa)
+
+x3 = Extracao(x2)
+
+
+def ExtracaoPetrick(Lista,mapa):
+    c=9999
+    ii=''
+    for i in x3[0]:
+        c2=0
+        for i2 in Mapa:
+            if i2 in i:
+                c2+=1
+        if c2 < c:
+            c = c2
+            ii=i
+    return ii
+
+def Substituicao(Termo,mapa):
+    l=[]
+    l2=[]
+    for i in Termo:
+        if i not in l:
+            l.append(i)
+    for i in l:
+        l2.append(mapa[i][0])
+    return l2
+
+
+x4 = ExtracaoPetrick(x3,Mapa)
+
+x5 = Substituicao(x4,Mapa)
+print(ListaC)
+print(x5)
