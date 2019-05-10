@@ -1,6 +1,6 @@
 Autor : José de Arimatéia C. Júnior
 
-Data : 23:20, 4 de novembro de 2018 (BRT) 
+Data : 22:24, 9 de maio de 2019 (BRT) 
 
 Venho trazer questões do site The Huxley(https://www.thehuxley.com).
 Realizadas no Primeiro periodo de Algoritimo,
