@@ -33,7 +33,7 @@ def SepararUm1(Lista, Cont, ListaTermos, MAX):#Sepera os termos em listas difere
         C1 = 0
         for i2 in range(2, len(i)):
             if i[i2] == 1:
-                C1+=1;
+                C1+=1
         if C1 == Cont:
             l.append(i)
     ListaTermos.append(l)
@@ -127,7 +127,7 @@ def criarMapa(Lista,QV):#Cria o mapa, que possibilita a extração dos implicant
             Mapa[i][1][l2.index(int(i2))] = 'O'
     return Mapa
 
-def verificadorPetrick(mapa):
+def verificadorPetrick(mapa):#Verifica quando usar o Metodo Petrick
     Maux=[]
     for i in mapa:
         Maux.append(mapa[i][1])
@@ -144,7 +144,7 @@ def verificadorPetrick(mapa):
     else:
         return False
 
-def Final(mapa):
+def essentialPrimeImplicants(mapa):#Encontra os termos essenciais,implicantes primos
     l2=[]
     for x in range(len(mapa['0'][1])):
         l = []
@@ -155,7 +155,7 @@ def Final(mapa):
     return l2
 
 
-def Multiplicador(Termo1,Termo2):
+def Multiplicador(Termo1,Termo2):#Multiplica variaveis em listas, retorna resultadoda multiplicação
     M=[]
     for i in Termo1:
         for i2 in Termo2:
@@ -169,7 +169,7 @@ def Multiplicador(Termo1,Termo2):
 
 
 
-def Extracao(Lista):
+def ExtracaoPetrick(Lista):#Retorna um lista contendo as possibilidas, da expressao minimizada
     ListaExt=[]
     x = len(Lista)
     if x == 1:
@@ -190,7 +190,60 @@ def Extracao(Lista):
             c1+=2
             c+=2
         ListaExt.append(Lista[-1])
-    return Extracao(ListaExt)
+    return ExtracaoPetrick(ListaExt)
+
+def EncontrarExpressao(Lista,mapa):#Verifica qual o termo mais minimizado
+    c=9999
+    ii=''
+    for i in Lista[0]:
+        c2=0
+        for i2 in mapa:
+            if i2 in i:
+                c2+=1
+        if c2 < c:
+            c = c2
+            ii=i
+    return ii
+
+def VerificarTermosMapa(Termos,mapa):#Verifica o mapa, a partir do termo reduzido e retorna seu represetente
+    listatermos,listatermosessenciais=[],[]
+    for variavel in Termos:
+        if variavel not in listatermos:
+            listatermos.append(variavel)
+    for termo in listatermos:
+        listatermosessenciais.append(mapa[termo][0])
+    return listatermosessenciais
+
+def SubstituirVaririaveis(listadeimplicantes,termosessenciais):#Faz a substituicao dos binarios por variaveis
+    listavariaveissub=[]
+    for i in range(len(listadeimplicantes)):
+        for i2 in range(len(termosessenciais)):
+            if termosessenciais[i2] == listadeimplicantes[i][1]:
+                bins = listadeimplicantes[i][2::]
+                listavariaveis=[]
+                for i3 in range(len(bins)):
+                    letra = chr(ord('A') + i3)
+                    if bins[i3] == 1:
+                        listavariaveis.append(letra)
+                    elif bins[i3] == 0:
+                        listavariaveis.append(letra+"'")
+                listavariaveissub+=[listavariaveis]
+    return listavariaveissub
+
+
+
+def OrganizarVariaveis(variaveis):
+    l=[]
+    c=0
+    for i in range(len(variaveis)):
+        if c != i:
+            l.append('+')
+        c2=0
+        for i2 in range(len(variaveis[i])):
+            if c2 != i2:
+                l.append('.')
+            l.append(variaveis[i][i2])
+    return "".join(l)
 
 
 
@@ -202,42 +255,12 @@ ListaA = criarListaBinario(QuantidadeVariaveis,Entrada)
 cont,ListaTermos = 0,[]
 ListaB = Minimizador(cont, ListaTermos, ListaA)
 ListaC = LimparRepetidos(ListaB)
-
 Mapa = criarMapa(ListaC,QuantidadeVariaveis)
-print(Mapa)
-x = verificadorPetrick(Mapa)
+PrimosEssenciais = essentialPrimeImplicants(Mapa)
+combinacoesPetrick = ExtracaoPetrick(PrimosEssenciais)
+TermoReduzido = EncontrarExpressao(combinacoesPetrick,Mapa)
+TermosEssenciais = VerificarTermosMapa(TermoReduzido,Mapa)
+Variaveis = SubstituirVaririaveis(ListaC,TermosEssenciais)
+TermoMinimizado = OrganizarVariaveis(Variaveis)
 
-x2 = Final(Mapa)
-
-x3 = Extracao(x2)
-
-
-def ExtracaoPetrick(Lista,mapa):
-    c=9999
-    ii=''
-    for i in x3[0]:
-        c2=0
-        for i2 in Mapa:
-            if i2 in i:
-                c2+=1
-        if c2 < c:
-            c = c2
-            ii=i
-    return ii
-
-def Substituicao(Termo,mapa):
-    l=[]
-    l2=[]
-    for i in Termo:
-        if i not in l:
-            l.append(i)
-    for i in l:
-        l2.append(mapa[i][0])
-    return l2
-
-
-x4 = ExtracaoPetrick(x3,Mapa)
-
-x5 = Substituicao(x4,Mapa)
-print(ListaC)
-print(x5)
+print(TermoMinimizado)
