@@ -1,3 +1,25 @@
+def Verificador(entrada):
+    if len(entrada) == entrada.count('1'):
+        print(1)
+        return False
+    if len(entrada) == entrada.count('0'):
+        print("Deve-se conter pelo menos um elemento '1' na Entrada.")
+        return False
+    for i in entrada:
+        if i != '0' and i != '1':
+            print("Digite apenas 0's e 1's.")
+            return False
+    n=1
+    while True:
+        if 2**n == len(entrada):
+            return n
+        elif 2**n > len(entrada):
+            print("Formato de entrada deve ser n%2 = 0,\nonde n = quantidade de elementos em S.")
+            return False
+        n+=1
+    print("Digite a Entrada novamente.")
+    return False
+
 def quantidadeVariaveis(Entrada):#Determina a quantida de variaveis a partir da Entrada.
     n=1
     while True:
@@ -144,12 +166,16 @@ def verificadorPetrick(mapa):#Verifica quando usar o Metodo Petrick
 
 def essentialPrimeImplicants(mapa):#Encontra os termos essenciais,implicantes primos
     l2=[]
-    for x in range(len(mapa['0'][1])):
+    indicesmapa=[]
+    for i in mapa:
+        indicesmapa.append(i)
+    for x in range(len(mapa[indicesmapa[0]][1])):
         l = []
         for i in mapa:
                 if mapa[i][1][x] == 'O':
-                    l.append(i)
-        l2.append(l)
+                    l.append(chr(ord('a') + int(i)))
+        if l != [] and l not in l2:
+            l2.append(l)
     return l2
 
 def Multiplicador(Termo1,Termo2):#Multiplica variaveis em listas, retorna resultadoda multiplicação
@@ -193,7 +219,7 @@ def EncontrarExpressao(Lista,mapa):#Verifica qual o termo mais minimizado
     for i in Lista[0]:
         c2=0
         for i2 in mapa:
-            if i2 in i:
+            if chr(ord('a') + int(i2)) in i:
                 c2+=1
         if c2 < c:
             c = c2
@@ -206,7 +232,8 @@ def VerificarTermosMapa(Termos,mapa):#Verifica o mapa, a partir do termo reduzid
         if variavel not in listatermos:
             listatermos.append(variavel)
     for termo in listatermos:
-        listatermosessenciais.append(mapa[termo][0])
+        var = str(int(ord(termo))-97)
+        listatermosessenciais.append(mapa[var][0])
     return listatermosessenciais
 
 def SubstituirVaririaveis(listadeimplicantes,termosessenciais):#Faz a substituicao dos binarios por variaveis
@@ -238,6 +265,35 @@ def OrganizarVariaveis(variaveis):#Organiza as variaveis, adicionas as expressoe
             l.append(variaveis[i][i2])
     return "".join(l)
 
+def SimplificarMapa(mapa, implicantesessenciais):#Extrai os elementos essenciais
+    implicantes=[]
+    listaelementos=[]
+    x = len(mapa)
+    for i in mapa:
+        listaelementos.append(mapa[i][1])
+    for y in range(len(listaelementos[0])):
+        lista=[]
+        for x in range(len(listaelementos)):
+            lista.append(listaelementos[x][y])
+        implicantes.append(lista)
+    for i in implicantes:
+        if i.count('O') == 1:
+            if str(i.index('O')) in mapa:
+                letra = str(i.index('O'))
+                implicantesessenciais.append([chr(ord('a') + int(letra))])
+                del(mapa[str(i.index('O'))])
+    return mapa,implicantesessenciais
+
+def OrganizarTermosEssenciais(termosessenciais,mapa):#Organiza os termos, substituindo pela qual o mapa se forma
+    termosorganizados=[]
+    for i in mapa:
+        for i2 in termosessenciais:
+            for i3 in i2:
+                var = str(int(ord(i3))-97)
+                if var == i:
+                    termosorganizados.append(mapa[i][0])
+    return termosorganizados
+
 def Comecar(Entrada):
     QuantidadeVariaveis = quantidadeVariaveis(Entrada)
     ListaA = criarListaBinario(QuantidadeVariaveis,Entrada)
@@ -245,12 +301,41 @@ def Comecar(Entrada):
     ListaB = Minimizador(contador, ListaTermos, ListaA, QuantidadeVariaveis)
     ListaC = LimparRepetidos(ListaB)
     Mapa = criarMapa(ListaC,QuantidadeVariaveis)
-    PrimosEssenciais = essentialPrimeImplicants(Mapa)
-    combinacoesPetrick = ExtracaoPetrick(PrimosEssenciais)
-    TermoReduzido = EncontrarExpressao(combinacoesPetrick,Mapa)
-    TermosEssenciais = VerificarTermosMapa(TermoReduzido,Mapa)
-    Variaveis = SubstituirVaririaveis(ListaC,TermosEssenciais)
-    TermoMinimizado = OrganizarVariaveis(Variaveis)
-    print(TermoMinimizado)
+    Petrick = verificadorPetrick(Mapa)
+    if Petrick == True:
+        PrimosEssenciais = essentialPrimeImplicants(Mapa)
+        combinacoesPetrick = ExtracaoPetrick(PrimosEssenciais)
+        TermoReduzido = EncontrarExpressao(combinacoesPetrick,Mapa)
+        TermosEssenciais = VerificarTermosMapa(TermoReduzido,Mapa)
+        Variaveis = SubstituirVaririaveis(ListaC,TermosEssenciais)
+        TermoMinimizado = OrganizarVariaveis(Variaveis)
+        print("Minimal boolean expression = ",TermoMinimizado)
+    else:
+        ImplicantsEssenciais=[]
+        MapaCopiaAuxiliar={}
+        for i in Mapa:
+            MapaCopiaAuxiliar[i] = Mapa[i]
+        MapaEImplicantsEssenciais = SimplificarMapa(MapaCopiaAuxiliar,ImplicantsEssenciais)
+        if MapaEImplicantsEssenciais[0] != {}:
+            PrimosEssenciais = essentialPrimeImplicants(MapaEImplicantsEssenciais[0])
+            PrimosEssenciais=PrimosEssenciais + MapaEImplicantsEssenciais[1]
+        else:
+            PrimosEssenciais = MapaEImplicantsEssenciais[1]
+        combinacoesPetrick = ExtracaoPetrick(PrimosEssenciais)
+        TermoReduzido = EncontrarExpressao(combinacoesPetrick,MapaEImplicantsEssenciais[0])
+        if MapaEImplicantsEssenciais[0]=={}:
+            TermosEssenciais = MapaEImplicantsEssenciais[1]
+            TermosEssenciais = OrganizarTermosEssenciais(TermosEssenciais,Mapa)
+        else:
+            TermosEssenciais = VerificarTermosMapa(TermoReduzido,Mapa)
+        Variaveis = SubstituirVaririaveis(ListaC,TermosEssenciais)
+        TermoMinimizado = OrganizarVariaveis(Variaveis)
+        print("Minimal boolean expression = ",TermoMinimizado)
 
-Comecar(input().split())
+def main():
+    print("\nEntrada = S.\nEx: 1 0 1 0.\nApenas 0's e 1's.\n")
+    Entrada = input().split()
+    if Verificador(Entrada) != False:
+        Comecar(Entrada)
+while True:
+    main()
