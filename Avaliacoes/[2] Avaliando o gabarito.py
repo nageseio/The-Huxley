@@ -1,13 +1,4 @@
-b=1
-pontos=0
-l=0
-l2=0
-l3=0
-c=0
-qnt=0
-qnt_a=0
-qnt3=0
-pg=0
+b,pontos,l,l2,l3,c,qnt,qnt_a,qnt3,pg=1,0,0,0,0,0,0,0,0
 listan=[]
 gabarito=[str(i) for i in input()]
 while b>0:
