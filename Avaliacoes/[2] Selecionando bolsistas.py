@@ -1,10 +1,9 @@
-x=0
 ecp=0
 tel=0
 bolsista_n=0
 n_aluno2=0
 soma2=0
-while x >= 0:
+while True:
   n_aluno=input()
   if n_aluno == "sair":
     break
